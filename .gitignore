@@ -1,2 +1,4 @@
 token.env
 env/
+IMDB Dataset.csv
+model.h5

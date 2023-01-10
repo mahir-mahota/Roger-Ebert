@@ -1,18 +1,32 @@
 from bs4 import BeautifulSoup
 import requests
+from googlesearch import search
 
-def get_results(query):
-    request = requests.get(query)
+async def search_query(query):
+    
+    urls = search(query)#, start = 5, num = 10, lang = 'en', pause = 5)
+    results = []
 
-    page_content = BeautifulSoup(request.content, 'html.parser')
+    for url in urls:
+        text = await get_text(url)
+        results.extend(text)
+    
+    return results
 
-    para = page_content.find_all('p')
+
+async def get_text(url):
+
+    request = requests.get(url)
     useful = []
 
-    for p in para:
-        if len(para) > 10 and len(p.text) > 200:
-            useful.append(p.text)
+    if request.status_code >= 200 and request.status_code < 300:
+
+        page_content = BeautifulSoup(request.content, 'html.parser')
+
+        para = page_content.find_all('p')
+
+        for p in para:
+            if len(para) > 10 and len(p.text) > 200:
+                useful.append(p.text)
         
     return useful
-        
-       
