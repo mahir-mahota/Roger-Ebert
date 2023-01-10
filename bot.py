@@ -24,8 +24,7 @@ async def on_message(message):
 
         await message.channel.send('Searching...')
 
-        results = await search_query(message.content[7:] + 'review')
-        await message.channel.send('Search failed, pleasy try again')
+        results = search_query(message.content[7:])
 
         results = vectorizer(results)
         predictions = model.predict(results)

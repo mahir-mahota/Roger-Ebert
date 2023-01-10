@@ -1,22 +1,30 @@
 from bs4 import BeautifulSoup
 import requests
 from googlesearch import search
+from random  import randint
 
-async def search_query(query):
+def search_query(query):
     
-    urls = search(query, start = 5, num = 10, lang = 'en', pause = 10)
+    PAUSE = randint(1, 10)
+    urls = search(query + " 'review'", stop = 10, start = 5, num = 10, lang = 'en', pause = PAUSE)
+
     results = []
 
     for url in urls:
-        text = await get_text(url)
+        text = get_text(url)
         results.extend(text)
+
     print(results)
     return results
 
 
-async def get_text(url):
+def get_text(url):
 
-    request = requests.get(url)
+    headers = requests.utils.default_headers()
+
+    headers.update({'User-Agent': 'My User Agent 1.0',})
+
+    request = requests.get(url, allow_redirects = False, headers = headers)
     useful = []
 
     if request.status_code >= 200 and request.status_code < 300:
