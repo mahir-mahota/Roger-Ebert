@@ -8,6 +8,8 @@ load_dotenv('token.env')
 TOKEN = os.getenv('TOKEN')
 
 model = tf.keras.models.load_model('model.h5')
+vectorizing_model = tf.keras.models.load_model('vector_model.tf')
+vectorizer = vectorizing_model.layers[0]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -22,11 +24,10 @@ async def on_message(message):
 
         await message.channel.send('Searching...')
 
-        try:
-            results = await search_query(message.content[7:] + 'review')
-        except:
-            await message.channel.send('Search failed, pleasy try again')
+        results = await search_query(message.content[7:] + 'review')
+        await message.channel.send('Search failed, pleasy try again')
 
+        results = vectorizer(results)
         predictions = model.predict(results)
         overall = sum(predictions) / len(predictions)
 

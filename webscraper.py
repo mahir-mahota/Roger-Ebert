@@ -4,7 +4,7 @@ from googlesearch import search
 
 async def search_query(query):
     
-    urls = search(query)#, start = 5, num = 10, lang = 'en', pause = 5)
+    urls = search(query, start = 5, num = 10, lang = 'en', pause = 5)
     results = []
 
     for url in urls:
