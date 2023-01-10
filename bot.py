@@ -32,8 +32,8 @@ async def on_message(message):
         overall = sum(predictions) / len(predictions)
 
         if overall > 0.5:
-            await message.channel.send('The overall reviews are positive')
+            await message.channel.send('The overall reviews are positive!')
         elif overall < 0.5:
-            await message.channel.send('The overall reviews are negative')
+            await message.channel.send('The overall reviews are negative!')
 
 client.run(TOKEN)
