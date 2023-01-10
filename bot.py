@@ -22,7 +22,10 @@ async def on_message(message):
 
         await message.channel.send('Searching...')
 
-        results = await search_query(message.content[7:] + 'review')
+        try:
+            results = await search_query(message.content[7:] + 'review')
+        except:
+            await message.channel.send('Search failed, pleasy try again')
 
         predictions = model.predict(results)
         overall = sum(predictions) / len(predictions)

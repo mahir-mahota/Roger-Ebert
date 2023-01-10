@@ -10,7 +10,7 @@ async def search_query(query):
     for url in urls:
         text = await get_text(url)
         results.extend(text)
-    
+    print(results)
     return results
 
 
@@ -27,6 +27,6 @@ async def get_text(url):
 
         for p in para:
             if len(para) > 10 and len(p.text) > 200:
-                useful.append(p.text)
+                useful.append(p.text.strip())
         
     return useful
