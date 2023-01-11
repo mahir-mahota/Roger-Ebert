@@ -3,7 +3,7 @@ import requests
 from googlesearch import search
 from random  import randint
 
-def search_query(query):
+async def search_query(query):
     
     PAUSE = randint(1, 10)
     urls = search(query + " 'review'", stop = 10, start = 5, num = 10, lang = 'en', pause = PAUSE)
@@ -11,14 +11,14 @@ def search_query(query):
     results = []
 
     for url in urls:
-        text = get_text(url)
+        text = await get_text(url)
         results.extend(text)
 
     print(results)
     return results
 
 
-def get_text(url):
+async def get_text(url):
 
     headers = requests.utils.default_headers()
 

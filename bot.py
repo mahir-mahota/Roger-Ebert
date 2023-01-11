@@ -23,16 +23,17 @@ async def on_message(message):
     if message.content.startswith('$search'):
 
         await message.channel.send('Searching...')
+        movie = message.content[8:]
 
-        results = search_query(message.content[7:])
+        results = await search_query(movie)
 
         results = vectorizer(results)
         predictions = model.predict(results)
         overall = sum(predictions) / len(predictions)
 
         if overall > 0.5:
-            await message.channel.send('The overall reviews are positive!')
+            await message.channel.send(f'The overall reviews for {movie} are positive!')
         elif overall < 0.5:
-            await message.channel.send('The overall reviews are negative!')
+            await message.channel.send(f'The overall reviews for {movie} are negative!')
 
 client.run(TOKEN)

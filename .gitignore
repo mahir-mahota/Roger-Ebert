@@ -4,3 +4,5 @@ IMDB Dataset.csv
 model.h5
 vector_model.tf
 .google-cookie
+model-Copy1.ipynb
+model_copy(long training).h5
