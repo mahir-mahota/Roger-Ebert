@@ -1,1 +1,1 @@
-# Discord-bot
+# A Movie Review Analysis Discord Bot
