@@ -6,3 +6,5 @@ vector_model.tf
 .google-cookie
 model-Copy1.ipynb
 model_copy(long training).h5
+.ipynb_checkpoints/
+__pycache__/
